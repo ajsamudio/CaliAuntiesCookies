@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <mask id="b" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+      <rect width="48" height="48" fill="#fff"/>
+      <circle cx="41" cy="8" r="7" fill="#000"/>
+      <circle cx="45.5" cy="16.5" r="5.5" fill="#000"/>
+      <circle cx="33" cy="3" r="5" fill="#000"/>
+    </mask>
+  </defs>
+  <g mask="url(#b)">
+    <circle cx="24" cy="24" r="21" fill="#EDBE7A" stroke="#4B2B24" stroke-width="3"/>
+    <circle cx="16" cy="19" r="3.4" fill="#3B1E14"/>
+    <circle cx="27" cy="14" r="2.8" fill="#3B1E14"/>
+    <circle cx="31" cy="28" r="3.4" fill="#3B1E14"/>
+    <circle cx="18.5" cy="31" r="3" fill="#3B1E14"/>
+    <circle cx="25" cy="37" r="2.2" fill="#3B1E14"/>
+    <circle cx="23" cy="23.5" r="1.8" fill="#3B1E14"/>
+  </g>
+</svg>
