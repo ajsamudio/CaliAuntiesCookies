@@ -7,11 +7,11 @@
 :root {
   /* Brand palette */
   --cream: #FFF7EF;
-  --blush: #FFEAF1;
-  --pink-100: #FFD5E3;
-  --pink-300: #FF9DC0;
-  --pink: #FF5C9A;
-  --berry: #D42A6A;
+  --blush: #FFEEF0;
+  --pink-100: #FFD9DE;
+  --pink-300: #FFB0B9;   /* brand light pink */
+  --pink: #B84F69;       /* brand rose */
+  --berry: #8E3550;
   --cocoa: #4B2B24;
   --cocoa-2: #7B544A;
   --butter: #FFD45E;
@@ -671,6 +671,23 @@ details[open]::details-content { block-size: auto; }
 .success h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 14px; }
 .success p { max-width: 42ch; margin: 0 auto 22px; color: var(--cocoa-2); }
 .success__demo { font-size: .88rem; padding: 10px 14px; border-radius: 12px; background: var(--butter); color: var(--cocoa) !important; font-weight: 700; }
+/* Preorders open/closed (set by SITE.preordersOpen) */
+html:not(.preorders-open) [data-when="open"],
+html.preorders-open [data-when="closed"] { display: none !important; }
+html:not(.preorders-open) .card__add,
+html:not(.preorders-open) .nav__cta .badge { display: none; }
+
+.coming-soon { padding: 26px 8px 8px; text-align: center; }
+.coming-soon__cookie { width: 150px; margin: 0 auto 22px; animation: spin 14s linear infinite; }
+.coming-soon h3 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); margin: 6px 0 14px; color: var(--pink); }
+.coming-soon p:not(.eyebrow) { max-width: 40ch; margin: 0 auto 26px; color: var(--cocoa-2); }
+
+.field__hint { margin: 8px 0 0; font-size: .86rem; color: var(--cocoa-2); }
+.field__hint:empty { display: none; }
+.chip__price { font-weight: 800; opacity: .8; }
+.chip input:disabled + span { opacity: .4; cursor: not-allowed; transform: none; }
+.contact-list .contact-list__val { font-size: 1rem; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--cocoa); }
+
 .confetti { position: absolute; z-index: 5; width: 9px; height: 22px; border-radius: 5px; border: 1.5px solid var(--cocoa); pointer-events: none; }
 
 /* ---------- Footer ---------- */

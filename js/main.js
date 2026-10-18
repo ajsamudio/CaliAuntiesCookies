@@ -13,6 +13,10 @@
   const animate = hasGSAP && !reduceMotion;
   const FLAVORS = window.FLAVORS || [];
   const bySlug = Object.fromEntries(FLAVORS.map(f => [f.slug, f]));
+  const MENU = FLAVORS.filter(f => f.available !== false);
+  const SITE = window.SITE || {};
+  const BOXES = SITE.boxes || [];
+  document.documentElement.classList.toggle('preorders-open', !!SITE.preordersOpen);
   let lenis = null;
 
   /* ---------- Helpers ---------- */
@@ -53,7 +57,7 @@
   }
 
   /* ---------- Illustrated cookie generator ---------- */
-  const SPRINKLE_COLORS = ['#FF5C9A', '#FFD45E', '#7FD8B6', '#8EC5FF', '#FFFFFF', '#C9A2F5', '#FF9E5E'];
+  const SPRINKLE_COLORS = ['#B84F69', '#FFD45E', '#7FD8B6', '#8EC5FF', '#FFFFFF', '#C9A2F5', '#FF9E5E'];
   let svgCount = 0;
 
   function cookieSVG(f) {
@@ -158,7 +162,7 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   if (grid) {
-    grid.innerHTML = FLAVORS.map(f => `
+    grid.innerHTML = MENU.map(f => `
       <div class="card-wrap">
         <article class="card" style="--card-bg:${f.bg};--accent:${f.accent}">
           <span class="card__tag">${esc(f.tag)}</span>
@@ -170,10 +174,10 @@
             <h3 class="card__title">${esc(f.name)}</h3>
             <p class="card__blurb">${esc(f.blurb)}</p>
             <ul class="card__notes" aria-label="Key ingredients">${f.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>
-            <button class="btn card__add" type="button" data-flavor="${f.slug}" aria-pressed="false">
+            ${f.boxable === false ? '' : `<button class="btn card__add" type="button" data-flavor="${f.slug}" aria-pressed="false">
               <span class="card__add-icon" aria-hidden="true">+</span>
-              <span class="card__add-label">Add to inquiry</span>
-            </button>
+              <span class="card__add-label">Add to box</span>
+            </button>`}
           </div>
           <span class="card__glare" aria-hidden="true"></span>
         </article>
@@ -181,16 +185,23 @@
   }
 
   if (chipsWrap) {
-    chipsWrap.innerHTML = FLAVORS.map(f => `
+    chipsWrap.innerHTML = MENU.filter(f => f.boxable !== false).map(f => `
       <label class="chip">
         <input type="checkbox" name="flavors" value="${esc(f.name)}" data-flavor="${f.slug}">
         <span><i class="chip__dot" style="background:${f.dough[0]}"></i>${esc(f.name)}</span>
-      </label>`).join('') + `
-      <label class="chip">
-        <input type="checkbox" name="flavors" value="Custom / surprise me">
-        <span><i class="chip__dot" style="background:conic-gradient(#FF5C9A,#FFD45E,#9FE3C8,#C9A2F5,#FF5C9A)"></i>Custom / surprise me</span>
-      </label>`;
+      </label>`).join('');
   }
+
+  const boxWrap = $('#box-chips');
+  if (boxWrap) {
+    boxWrap.innerHTML = BOXES.map(b => `
+      <label class="chip">
+        <input type="radio" name="box" value="${esc(b.label)}" data-box="${esc(b.id)}" required>
+        <span>${esc(b.label)} <small>· ${esc(b.note)}</small>${b.price ? ` <b class="chip__price">${esc(b.price)}</b>` : ''}</span>
+      </label>`).join('');
+  }
+  const pickupNote = $('#pickup-note');
+  if (pickupNote) pickupNote.textContent = SITE.pickupNote || '';
 
   /* ---------- Toast ---------- */
   const toastEl = $('.toast');
@@ -209,11 +220,33 @@
   const addLines = ['Ooh, great taste.', 'Auntie approves. 💅', 'Added! Treat yourself.', 'Excellent choice, sweetie.', 'Into the box it goes!', 'A person of culture, we see.'];
   let addIdx = 0;
 
+  const currentBox = () => {
+    const r = boxWrap && $('input[name="box"]:checked', boxWrap);
+    return r ? BOXES.find(b => b.id === r.dataset.box) : null;
+  };
+  const maxFlavors = () => {
+    const b = currentBox();
+    return b ? b.maxFlavors : Math.max(1, ...BOXES.map(x => x.maxFlavors));
+  };
+  function updateFlavorHint() {
+    const max = maxFlavors();
+    const legend = $('#flavor-legend');
+    const hint = $('#flavor-hint');
+    if (legend) legend.textContent = max > 1 ? `Choose up to ${max} flavors` : 'Choose your flavor';
+    if (hint) hint.textContent = `${selected.size} of ${max} picked · subject to availability`;
+  }
+
   function setSelected(slug, on, silent) {
+    if (on && !selected.has(slug) && selected.size >= maxFlavors()) {
+      $$(`#flavor-chips input[data-flavor="${slug}"]`).forEach(cb => { cb.checked = false; });
+      const b = currentBox();
+      toast(b && b.maxFlavors === 1 ? `A ${b.label.toLowerCase()} is one flavor. Go for 12 to mix it up!` : `Easy, tiger! Up to ${maxFlavors()} flavors per box.`);
+      return;
+    }
     on ? selected.add(slug) : selected.delete(slug);
     $$(`.card__add[data-flavor="${slug}"]`).forEach(btn => {
       btn.setAttribute('aria-pressed', String(on));
-      $('.card__add-label', btn).textContent = on ? 'In your inquiry' : 'Add to inquiry';
+      $('.card__add-label', btn).textContent = on ? 'In your box' : 'Add to box';
     });
     $$(`#flavor-chips input[data-flavor="${slug}"]`).forEach(cb => { cb.checked = on; });
     if (badge) {
@@ -221,6 +254,7 @@
       badge.classList.toggle('is-on', selected.size > 0);
       badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump');
     }
+    updateFlavorHint();
     if (!silent) {
       const name = bySlug[slug] ? bySlug[slug].name : 'Cookie';
       toast(on ? `${name}: ${addLines[addIdx++ % addLines.length]}` : "Removed. Auntie's not mad, just disappointed.");
@@ -237,9 +271,15 @@
     const slug = e.target.dataset.flavor;
     if (slug) setSelected(slug, e.target.checked, true);
   });
+  boxWrap && boxWrap.addEventListener('change', () => {
+    [...selected].slice(maxFlavors()).forEach(s => setSelected(s, false, true));
+    updateFlavorHint();
+    const f = boxWrap.closest('.field'); f && f.classList.remove('is-invalid');
+  });
+  updateFlavorHint();
 
   /* ---------- Decorative sprinkles ---------- */
-  const DECO_COLORS = ['#FF5C9A', '#FFD45E', '#9FE3C8', '#C9A2F5', '#FF9DC0', '#8EC5FF'];
+  const DECO_COLORS = ['#B84F69', '#FFD45E', '#9FE3C8', '#C9A2F5', '#FFB0B9', '#8EC5FF'];
   $$('[data-sprinkles]').forEach((sec, si) => {
     const rand = mulberry32(si * 977 + 13);
     const n = parseInt(sec.dataset.sprinkles, 10) || 8;
@@ -365,9 +405,11 @@
       status.textContent = '';
       const invalid = $$('input, select, textarea', form).filter(el => !el.checkValidity());
       $$('.field', form).forEach(f => f.classList.remove('is-invalid'));
+      const noFlavor = chipsWrap && selected.size === 0;
+      if (noFlavor) invalid.push($('input', chipsWrap));
       if (invalid.length) {
         invalid.forEach(el => { const f = el.closest('.field'); f && f.classList.add('is-invalid'); });
-        status.textContent = 'Almost! Please fill in the highlighted fields.';
+        status.textContent = noFlavor && invalid.length === 1 ? 'Almost! Pick at least one flavor.' : 'Almost! Please fill in the highlighted fields.';
         invalid[0].focus();
         return;
       }
@@ -397,13 +439,14 @@
       } finally {
         submit.disabled = false;
         submit.classList.remove('is-loading');
-        $('.btn__label', submit).textContent = 'Send my inquiry';
+        $('.btn__label', submit).textContent = 'Send my request';
       }
     });
 
     $('[data-reset]', success).addEventListener('click', () => {
       form.reset();
       [...selected].forEach(s => setSelected(s, false, true));
+      updateFlavorHint();
       success.hidden = true;
       form.hidden = false;
       $('#f-name', form).focus();

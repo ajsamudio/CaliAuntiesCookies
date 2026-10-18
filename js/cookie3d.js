@@ -232,7 +232,7 @@
   const tilt = new THREE.Group(); root.add(tilt);
   const spin = new THREE.Group(); tilt.add(spin);
 
-  const SPRINKLES = ['#FF5C9A', '#FFD45E', '#7FD8B6', '#8EC5FF', '#FFFFFF', '#C9A2F5'];
+  const SPRINKLES = ['#B84F69', '#FFD45E', '#7FD8B6', '#8EC5FF', '#FFFFFF', '#C9A2F5'];
 
   const main = makeCookie({
     seed: 7, top: '#D99A52', edge: '#9A5520', crack: '#F0C98A', bottom: '#7A4218',
