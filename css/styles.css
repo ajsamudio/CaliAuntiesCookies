@@ -157,7 +157,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; font-optica
   animation: preloader-safety .5s 7s forwards;
 }
 .preloader__inner { text-align: center; }
-.preloader__cookie { width: 120px; margin: 0 auto 20px; }
+.preloader__cookie { width: 120px; margin: 0 auto 20px; animation: spin 2.6s linear infinite, halo 1.6s ease-out infinite; }
 .preloader__text { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 6px; font-style: italic; font-weight: 300; }
 .preloader__num { font-weight: 600; letter-spacing: .1em; margin: 0; }
 @keyframes preloader-safety { to { opacity: 0; visibility: hidden; } }
@@ -781,6 +781,7 @@ html:not(.preorders-open) .nav__cta .badge { display: none; }
 
 /* ---------- Keyframes ---------- */
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes halo { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .55); } 100% { box-shadow: 0 0 0 22px rgba(255, 255, 255, 0); } }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 212, 94, .7); } 70% { box-shadow: 0 0 0 10px rgba(255, 212, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 212, 94, 0); } }
 @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
 
