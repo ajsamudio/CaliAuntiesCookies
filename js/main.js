@@ -296,7 +296,7 @@
   updateFlavorHint();
 
   /* ---------- Decorative sprinkles ---------- */
-  const DECO_COLORS = ['#B84F69', '#FFD45E', '#9FE3C8', '#C9A2F5', '#FFB0B9', '#8EC5FF'];
+  const DECO_COLORS = ['#B84F69', '#EFCB7B', '#CFE3D6', '#E4D9EC', '#F4B7C0', '#B8925A'];
   $$('[data-sprinkles]').forEach((sec, si) => {
     const rand = mulberry32(si * 977 + 13);
     const n = parseInt(sec.dataset.sprinkles, 10) || 8;
