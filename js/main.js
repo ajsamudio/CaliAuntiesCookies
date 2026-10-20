@@ -206,8 +206,8 @@
     const tones = ['pink', 'butter', 'mint'];
     boxGrid.innerHTML = BOXES.map((b, i) => `
       <article class="box-card box-card--${tones[i % tones.length]}" data-pop>
-        <div class="box-card__tray box-card__tray--${b.size}" aria-hidden="true">
-          ${Array.from({ length: b.size }, () => '<svg viewBox="0 0 48 48"><use href="#logo-cookie"/></svg>').join('')}
+        <div class="box-card__tray">
+          <img src="${esc(b.photo)}" alt="${esc(b.label)} gift box" loading="lazy" decoding="async" width="800" height="1067">
         </div>
         <h3 class="box-card__name">${esc(b.label)}</h3>
         <p class="box-card__price">${esc(b.price || '')}</p>

@@ -18,9 +18,9 @@ window.SITE = {
   preordersOpen: false,
   instagram: 'caliauntiescookies',
   boxes: [
-    { id: 'box-4', label: 'The Flirty 4-Pack', size: 4, maxFlavors: 1, price: '$16', note: 'One flavor', blurb: 'Four cookies. One flavor. A little something just for you.' },
-    { id: 'box-6', label: 'The Sweet 6-Pack', size: 6, maxFlavors: 1, price: '$22', note: 'One flavor', blurb: 'Six cookies. One flavor. Sweet enough to share… if you\'re feeling generous.' },
-    { id: 'box-12', label: 'The Party Dozen', size: 12, maxFlavors: 2, price: '$42', note: 'Up to two flavors', blurb: 'Twelve cookies. Up to two flavors. Because some occasions deserve a little extra temptation.' }
+    { id: 'box-4', photo: 'assets/images/boxes/box-4.jpg', label: 'The Flirty 4-Pack', size: 4, maxFlavors: 1, price: '$16', note: 'One flavor', blurb: 'Four cookies. One flavor. A little something just for you.' },
+    { id: 'box-6', photo: 'assets/images/boxes/box-6.jpg', label: 'The Sweet 6-Pack', size: 6, maxFlavors: 1, price: '$22', note: 'One flavor', blurb: 'Six cookies. One flavor. Sweet enough to share… if you\'re feeling generous.' },
+    { id: 'box-12', photo: 'assets/images/boxes/box-12.jpg', label: 'The Party Dozen', size: 12, maxFlavors: 2, price: '$42', note: 'Up to two flavors', blurb: 'Twelve cookies. Up to two flavors. Because some occasions deserve a little extra temptation.' }
   ],
   pickupNote: 'Local pickup in Irvine. We\'ll confirm your pickup time and payment details when we reply.'
 };
