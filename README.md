@@ -1,10 +1,11 @@
-# Cali Aunties Cookies: website
+# Cali Aunties: website
 
-A one-page site for Cali Aunties Cookies. Plain HTML, CSS and JavaScript with no build step.
+A one-page site for Cali Aunties ("Happiness is Homemade."). Plain HTML, CSS and JavaScript with no build step.
 
-- **3D hero cookie**: built in code with Three.js. Visitors can drag it to spin it or tap it to "boop" it.
+- **Real photos**: the client's hero box photo, plus a photo for each of the 11 menu items (`assets/images/`).
+- **Official logos**: header, footer and favicon use her Canva logos (`assets/images/logo/`).
 - **Scroll animations**: GSAP + ScrollTrigger, with Lenis for smooth scrolling.
-- **Preorder request form**: box of 6 (one flavor) or 12 (up to two flavors), name, contact and pickup date. Posts to Formspree (free tier). Hidden behind an "Online Preorders Coming Soon" panel until `preordersOpen` is turned on.
+- **Preorder request form**: The Flirty 4-Pack ($16, one flavor), The Sweet 6-Pack ($22, one flavor) or The Party Dozen ($42, up to two flavors), plus name, contact and pickup date. Posts to Formspree (free tier). Hidden behind an "Online Preorders Coming Soon" panel until `preordersOpen` is turned on.
 
 ## Run it locally
 
@@ -22,11 +23,10 @@ Then open http://localhost:5173.
 |---|---|
 | **Open preorders** | `js/flavors.js`: set `preordersOpen: true` in `window.SITE` once the county approval comes through. Box sizes, prices and the pickup note live there too. |
 | **Brand colors** | `css/styles.css`, at the top in `:root` (`--pink`, `--cocoa`, `--butter`, …) |
-| **Logo** | `index.html`: replace the `<a class="logo">` contents with `<img src="assets/logo.png" alt="Cali Aunties Cookies" height="52">` (header and footer) |
-| **Flavors** (names, blurbs, tags) | `js/flavors.js`. Set `available: false` to hide a flavor without deleting it. Only 5 of the 11 approved items are listed so far; add the rest here. |
-| **Flavor photos** | Put photos in `assets/images/flavors/` and set `photo: "assets/images/flavors/og-auntie.jpg"` on that flavor in `js/flavors.js` |
-| **Story text** | `index.html`, the `#story` section (marked `EDIT`) |
-| **Story photos** | `index.html`: swap each `.polaroid__img` placeholder for an `<img class="polaroid__photo" …>` |
+| **Logo** | `assets/images/logo/`: trimmed copies of the official logos used in the header and footer |
+| **Flavors** (names, nicknames, blurbs, photos, alt text) | `js/flavors.js`. All 11 approved items are listed. Set `available: false` to hide one without deleting it, or `photoPos` to adjust a photo's crop. |
+| **Box sizes & prices** | `js/flavors.js`, `window.SITE.boxes` (fills the "Three Levels of Temptation" section and the form) |
+| **Story text** | `index.html`, the `#story` section (approved copy from Oct 19) |
 | **Business email** | `index.html`, order section `contact-list` and footer (marked `EDIT`) |
 | **Inquiry form** | Create a form at [formspree.io](https://formspree.io), then replace `YOUR_FORM_ID` in **both** the `action` and `data-endpoint` attributes of `#inquiry-form` |
 
@@ -34,7 +34,9 @@ Until a Formspree ID is added, the form runs in **demo mode**. It shows the succ
 
 ## Hosting
 
-Upload the folder as-is to Netlify, Vercel, Cloudflare Pages or GitHub Pages. No build settings are needed.
+Upload the folder to Netlify, Vercel, Cloudflare Pages or GitHub Pages. No build settings are needed.
+
+**Don't deploy `10.19Update/`.** It's the client's raw photo package and copy PDF (git-ignored). Move it out of the folder or exclude it before uploading.
 
 ## Later: online ordering
 
@@ -42,5 +44,5 @@ The "Add to inquiry" buttons already collect a basket of flavors (see `selected`
 
 ## Accessibility & motion
 
-- Respects `prefers-reduced-motion`: no preloader, smooth scroll or scroll effects, and the cookie stops auto-spinning.
-- If WebGL isn't available, the 3D cookie falls back to an illustrated cookie.
+- Respects `prefers-reduced-motion`: no preloader, smooth scroll or scroll effects.
+- Every photo has descriptive alt text (set in `js/flavors.js` for the menu).

@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cali Aunties Cookies · Happiness is Homemade</title>
-  <meta name="description" content="Cali Aunties Cookies is a home-based bakery in Irvine, California, making thick, indulgent, small-batch cookies with creative flavors and a little personality. Online preorders for local pickup coming soon.">
+  <title>Cali Aunties · Happiness is Homemade.</title>
+  <meta name="description" content="Welcome to Cali Aunties, where every cookie is made from scratch, baked with love, and served with a little attitude. Big cookies, bold flavors, homemade in Irvine, California. Online preorders coming soon.">
   <meta name="theme-color" content="#B84F69">
-  <meta property="og:title" content="Cali Aunties Cookies · Happiness is Homemade">
-  <meta property="og:description" content="Thick, homemade cookies with a little personality, baked in Irvine, CA. Online preorders coming soon.">
+  <meta property="og:title" content="Cali Aunties · Happiness is Homemade.">
+  <meta property="og:description" content="Big cookies, bold flavors, and those sweet little moments that make life delicious. Online preorders coming soon.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:image" content="assets/images/hero-box.jpg">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/images/hero-box.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,18 +77,13 @@
     </div>
     <nav class="nav" aria-label="Main">
       <div class="container nav__inner">
-        <!-- LOGO: to use her real logo, replace this <a> content with
-             <img src="assets/logo.png" alt="Cali Aunties Cookies" height="52"> -->
-        <a class="logo" href="#top" aria-label="Cali Aunties Cookies, back to top">
-          <svg class="logo__mark" aria-hidden="true"><use href="#logo-cookie"/></svg>
-          <span class="logo__text">
-            <span class="logo__name">Cali Aunties</span>
-            <span class="logo__sub">Cookies</span>
-          </span>
+        <a class="logo" href="#top" aria-label="Cali Aunties, back to top">
+          <img class="logo__img" src="assets/images/logo/cali-aunties.png" alt="Cali Aunties" width="640" height="136">
         </a>
 
         <ul class="nav__links">
-          <li><a href="#flavors">Flavors</a></li>
+          <li><a href="#flavors">Menu</a></li>
+          <li><a href="#boxes">Boxes</a></li>
           <li><a href="#story">Our Story</a></li>
           <li><a href="#how">How it Works</a></li>
           <li><a href="#faq">FAQ</a></li>
@@ -106,7 +104,8 @@
 
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul>
-      <li><a href="#flavors">Flavors</a></li>
+      <li><a href="#flavors">Menu</a></li>
+      <li><a href="#boxes">Boxes</a></li>
       <li><a href="#story">Our Story</a></li>
       <li><a href="#how">How it Works</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -128,22 +127,22 @@
 
           <h1 class="hero__title" data-split>
             <span class="line">Happiness <span class="hero__is">is</span></span>
-            <span class="line"><em>Homemade<svg class="hero__underline" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 4, 120 22, 170 12 S 260 6, 296 14" /></svg></em></span>
+            <span class="line"><em>Homemade.<svg class="hero__underline" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 4, 120 22, 170 12 S 260 6, 296 14" /></svg></em></span>
           </h1>
 
-          <p class="lede hero__lede">Thick, indulgent, generously loaded cookies, made from scratch in small batches with love, creativity and a touch of nostalgia. Every cookie should feel like a little celebration.</p>
+          <p class="lede hero__lede">Welcome to Cali Aunties, where every cookie is made from scratch, baked with love, and served with a little attitude.</p>
 
           <div class="hero__actions">
             <a class="btn" href="#flavors">
-              See the flavors
+              Meet the menu
               <svg aria-hidden="true"><use href="#i-arrow"/></svg>
             </a>
-            <a class="btn btn--ghost" href="#order">Preorders</a>
+            <a class="btn btn--ghost" href="#boxes">See the boxes</a>
           </div>
 
           <ul class="hero__perks">
             <li><svg aria-hidden="true"><use href="#i-check"/></svg>Made from scratch</li>
-            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Small batches</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Baked with love</li>
             <li><svg aria-hidden="true"><use href="#i-check"/></svg>Local pickup in Irvine</li>
           </ul>
         </div>
@@ -151,8 +150,10 @@
         <div class="hero__visual">
           <div class="hero__visual-inner">
             <div class="sunburst" aria-hidden="true"></div>
-            <div class="cookie-stage" id="cookie-stage" role="img" aria-label="A 3D chocolate chip cookie. Drag to spin it, tap to boop it."></div>
-            <div class="cookie-fallback" data-cookie="chocolate-chip" aria-hidden="true"></div>
+            <figure class="hero__photo">
+              <img src="assets/images/hero-box.jpg" alt="A pink Cali Aunties box filled with blue Monster cookies and pink-and-blue Cotton Candy cookies" width="1000" height="1145" fetchpriority="high">
+            </figure>
+            <img class="hero__doodle" src="assets/images/logo/cookie-hearts.png" alt="" width="400" height="193" aria-hidden="true">
 
             <svg class="sticker" viewBox="0 0 200 200" aria-hidden="true">
               <defs><path id="sticker-path" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0"/></defs>
@@ -162,11 +163,6 @@
               </g>
               <use href="#i-heart" x="72" y="72" width="56" height="56" color="#B84F69"/>
             </svg>
-
-            <p class="hero__hint">
-              <svg viewBox="0 0 60 40" aria-hidden="true"><path d="M4 34 C 16 10, 34 6, 52 12 M44 4 L53 12 L43 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              drag to spin me!
-            </p>
           </div>
         </div>
       </div>
@@ -176,29 +172,41 @@
     <div class="ribbons" aria-hidden="true">
       <div class="ribbon ribbon--a">
         <div class="ribbon__track">
-          <span>Happiness is Homemade</span><svg><use href="#i-star"/></svg>
-          <span>Baked with love</span><svg><use href="#i-star"/></svg>
-          <span>Served with sass</span><svg><use href="#i-star"/></svg>
-          <span>Small batch, big hugs</span><svg><use href="#i-star"/></svg>
+          <span>Happiness is Homemade.</span><svg><use href="#i-star"/></svg>
+          <span>Thick, sweet, and a little naughty.</span><svg><use href="#i-star"/></svg>
+          <span>No boring bites.</span><svg><use href="#i-star"/></svg>
+          <span>Made with love.</span><svg><use href="#i-star"/></svg>
         </div>
       </div>
       <div class="ribbon ribbon--b">
         <div class="ribbon__track">
-          <span>Fresh from Auntie's oven</span><svg><use href="#i-heart"/></svg>
-          <span>One is never enough</span><svg><use href="#i-heart"/></svg>
-          <span>Made in Irvine, CA</span><svg><use href="#i-heart"/></svg>
-          <span>Calories don't count here</span><svg><use href="#i-heart"/></svg>
+          <span>A little love.</span><svg><use href="#i-heart"/></svg>
+          <span>A lot of cookie.</span><svg><use href="#i-heart"/></svg>
+          <span>Just enough trouble.</span><svg><use href="#i-heart"/></svg>
+          <span>Baked with personality.</span><svg><use href="#i-heart"/></svg>
         </div>
       </div>
     </div>
+
+    <!-- INTRO -->
+    <section class="section intro" id="welcome">
+      <div class="container intro__inner">
+        <p class="intro__big" data-words>We're all about big cookies, bold flavors, and those sweet little moments that make life delicious.</p>
+        <p class="lede" data-reveal>Whether you're treating yourself, sharing with someone special, or showing up with a box of happiness, we've got something to satisfy your cravings.</p>
+        <p class="intro__tags" data-reveal>
+          <span>Thick, sweet, and a little naughty.</span>
+          <span>A little love. A lot of cookie. Just enough trouble.</span>
+        </p>
+      </div>
+    </section>
 
     <!-- FLAVORS -->
     <section class="section flavors" id="flavors" data-sprinkles="8">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow" data-reveal>The Menu</p>
-          <h2 class="h2" data-split-reveal>Flavors with <em>personality</em></h2>
-          <p class="lede" data-reveal>Nostalgic favorites, playful surprises and seasonal specials. Boxes come in 6 (one flavor) or 12 (up to two flavors), subject to availability.</p>
+          <h2 class="h2" data-split-reveal>Meet your <em>cookie crush.</em></h2>
+          <p class="lede" data-reveal>11 flavors. Endless temptation.</p>
         </header>
 
         <div class="flavor-grid" id="flavor-grid">
@@ -206,38 +214,52 @@
         </div>
 
         <p class="flavors__note" data-reveal>
-          New and seasonal flavors drop on Instagram first.
+          Follow along for what's fresh from the oven.
           <a href="https://instagram.com/caliauntiescookies" target="_blank" rel="noopener">@caliauntiescookies <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </p>
       </div>
     </section>
 
+    <!-- BOXES (filled from SITE.boxes in js/flavors.js) -->
+    <section class="section boxes" id="boxes" data-sprinkles="6">
+      <svg class="wave wave--top" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H1440 V40 C1320,85 1200,85 1080,50 C960,15 840,15 720,50 C600,85 480,85 360,50 C240,15 120,15 0,50 Z"/></svg>
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-reveal>The Boxes</p>
+          <h2 class="h2" data-split-reveal>Three levels of <em>temptation.</em></h2>
+        </header>
+
+        <div class="box-grid" id="box-grid"><!-- generated from SITE.boxes --></div>
+
+        <p class="boxes__note" data-reveal data-when="closed">Online preorders coming soon.</p>
+      </div>
+    </section>
+
     <!-- STORY -->
     <section class="section story" id="story">
-      <svg class="wave wave--top" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H1440 V40 C1320,85 1200,85 1080,50 C960,15 840,15 720,50 C600,85 480,85 360,50 C240,15 120,15 0,50 Z"/></svg>
+      <svg class="wave wave--top wave--blush" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H1440 V40 C1320,85 1200,85 1080,50 C960,15 840,15 720,50 C600,85 480,85 360,50 C240,15 120,15 0,50 Z"/></svg>
 
       <div class="container story__grid">
         <div class="polaroids">
-          <!-- PHOTOS: swap the illustrated placeholders for real photos, e.g.
-               <img class="polaroid__photo" src="assets/images/auntie.jpg" alt="Auntie in her kitchen"> -->
           <figure class="polaroid polaroid--a" data-speed="0.35">
-            <div class="polaroid__img polaroid__img--gingham" data-cookie="chocolate-chip"></div>
-            <figcaption class="polaroid__cap">fresh from Auntie's oven</figcaption>
+            <div class="polaroid__img"><img class="polaroid__photo" src="assets/images/menu/chocolate-chip.jpg" alt="Chocolate chip cookies on a wooden board" loading="lazy" width="800" height="1067"></div>
+            <figcaption class="polaroid__cap">fresh from the oven</figcaption>
           </figure>
           <figure class="polaroid polaroid--b" data-speed="-0.25">
-            <div class="polaroid__img polaroid__img--mint" data-cookie="cotton-candy"></div>
-            <figcaption class="polaroid__cap">taste-tester approved ✓</figcaption>
+            <div class="polaroid__img"><img class="polaroid__photo" src="assets/images/menu/cotton-candy.jpg" alt="Sparkly pink and blue cotton candy cookies" loading="lazy" width="800" height="1067"></div>
+            <figcaption class="polaroid__cap">a little sass</figcaption>
           </figure>
-          <p class="sticky-note" data-speed="0.6">psst… <br>the dough is the best part</p>
+          <p class="sticky-note" data-speed="0.6">absolutely <br>no boring bites</p>
         </div>
 
         <div class="story__copy">
           <p class="eyebrow" data-reveal>Our Story</p>
-          <h2 class="h2" data-split-reveal>More than <em>just</em> cookies.</h2>
-          <p class="story__big" data-words>Cali Aunties is about creating little moments of happiness through homemade treats.</p>
-          <p data-reveal>We're a home-based bakery in Irvine, California, baking thick, generously loaded cookies in small batches with a focus on flavor, freshness and creativity. From classic Chocolate Chip to Monster, S'mores and Cotton Candy, we mix nostalgic favorites with playful, unexpected flavors.</p>
-          <p data-reveal>Our personality is a little cheeky, but the heart behind it is genuine: every box should feel like it was made especially for you, not mass-produced. Our philosophy is simple: <strong>happiness is homemade</strong>.</p>
-          <p class="signature" data-reveal>xoxo, Auntie</p>
+          <h2 class="h2" data-split-reveal>A little love in <em>every bite.</em></h2>
+          <p class="story__big" data-words>At Cali Aunties, we believe the sweetest things in life are homemade.</p>
+          <p data-reveal>What started as a love for baking and sharing cookies with the people around us has grown into something a little bigger, a little bolder, and a whole lot sweeter.</p>
+          <p data-reveal>Every batch is made from scratch, with carefully chosen ingredients, creative flavors, and plenty of love. Because to us, cookies aren't just a treat. They're a way to celebrate life's little moments, make someone smile, and turn an ordinary day into something special.</p>
+          <p data-reveal>And if that means sneaking an extra cookie when nobody's looking? <strong>We don't judge.</strong> 😉</p>
+          <p class="signature" data-reveal>Happiness is Homemade.</p>
         </div>
       </div>
 
@@ -246,22 +268,22 @@
           <div class="value__icon value__icon--pink">
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart"/></svg>
           </div>
-          <h3>Small batch, big love</h3>
-          <p>No factories, no shortcuts. Just a few batches at a time, made with the kind of attention you can taste.</p>
+          <h3>Made with love.</h3>
+          <p>Cali Aunties was built on a simple belief: happiness doesn't have to be complicated. Sometimes, it comes fresh from the oven.</p>
         </article>
         <article class="value" data-pop>
           <div class="value__icon value__icon--butter">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15.5l9-5 9 5-9 5-9-5z" fill="#FFF3C4" stroke="#4B2B24" stroke-width="2" stroke-linejoin="round"/><path d="M3 15.5V12l9-5 9 5v3.5" fill="#FFE07A" stroke="#4B2B24" stroke-width="2" stroke-linejoin="round"/><path d="M12 10.5V20.5" stroke="#4B2B24" stroke-width="2"/></svg>
           </div>
-          <h3>Generously loaded</h3>
-          <p>Thick cookies, piled high with the good stuff. Nobody ever complained about too much chocolate.</p>
+          <h3>Baked with personality.</h3>
+          <p>And while we take our cookies seriously, we don't believe in taking ourselves too seriously. A little sweetness, a little sass, and absolutely no boring bites.</p>
         </article>
         <article class="value" data-pop>
           <div class="value__icon value__icon--mint">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#fff" stroke="#4B2B24" stroke-width="2"/><path d="M12 7v5l3.5 2" fill="none" stroke="#4B2B24" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4z" fill="#fff" stroke="#4B2B24" stroke-width="2" stroke-linejoin="round"/><path d="M12 17.5s-3.2-1.9-3.2-3.9c0-1 .8-1.8 1.7-1.8.7 0 1.2.4 1.5 1 .3-.6.8-1 1.5-1 .9 0 1.7.8 1.7 1.8 0 2-3.2 3.9-3.2 3.9z" fill="#B84F69"/></svg>
           </div>
-          <h3>Fresh for pickup</h3>
-          <p>Nothing sits on a shelf. Your box is baked for your scheduled pickup, so it tastes the way it should.</p>
+          <h3>Shared with happiness.</h3>
+          <p>From our home kitchen to your happy place.</p>
         </article>
       </div>
     </section>
@@ -294,7 +316,7 @@
               <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#logo-cookie"/></svg>
             </div>
             <h3>Pick your box</h3>
-            <p>A box of 6 in one flavor, or a box of 12 with up to two flavors. Choose from what's available that week.</p>
+            <p>The Flirty 4-Pack or The Sweet 6-Pack in one flavor, or The Party Dozen with up to two flavors.</p>
           </article>
           <article class="step" data-step>
             <div class="step__circle step__circle--pink">
@@ -347,7 +369,7 @@
           </details>
           <details data-reveal>
             <summary>What box sizes do you offer?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <div class="faq__body"><p>A box of 6 cookies in one flavor, or a box of 12 with up to two flavors, subject to availability.</p></div>
+            <div class="faq__body"><p>Three levels of temptation: The Flirty 4-Pack ($16, one flavor), The Sweet 6-Pack ($22, one flavor) and The Party Dozen ($42, up to two flavors). Subject to availability.</p></div>
           </details>
           <details data-reveal>
             <summary>Do you deliver or ship?<span class="faq__icon" aria-hidden="true">+</span></summary>
@@ -388,7 +410,7 @@
             <div class="coming-soon__cookie" data-cookie="chocolate-chip"></div>
             <p class="eyebrow">Almost out of the oven</p>
             <h3>Online Preorders Coming Soon</h3>
-            <p>Boxes of 6 (one flavor) and 12 (up to two flavors) for local pickup in Irvine. Follow along on Instagram to be the first to know when preorders open.</p>
+            <p>The Flirty 4-Pack, The Sweet 6-Pack and The Party Dozen, for local pickup in Irvine. Follow along on Instagram to be the first to know when preorders open.</p>
             <a class="btn btn--lg" href="https://instagram.com/caliauntiescookies" target="_blank" rel="noopener">
               Follow @caliauntiescookies
               <svg aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -461,26 +483,23 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p class="footer__big" data-split aria-label="Happiness is Homemade">
+      <p class="footer__big" data-split aria-label="Happiness is Homemade.">
         <span class="line">Happiness is</span>
-        <span class="line">Homemade</span>
+        <span class="line">Homemade.</span>
       </p>
 
       <div class="footer__grid">
         <div class="footer__brand">
-          <a class="logo logo--light" href="#top" aria-label="Cali Aunties Cookies, back to top">
-            <svg class="logo__mark" aria-hidden="true"><use href="#logo-cookie"/></svg>
-            <span class="logo__text">
-              <span class="logo__name">Cali Aunties</span>
-              <span class="logo__sub">Cookies</span>
-            </span>
+          <a class="logo logo--light" href="#top" aria-label="Cali Aunties, back to top">
+            <img class="logo__img" src="assets/images/logo/cali-aunties-happiness.png" alt="Cali Aunties: Happiness is Homemade" width="800" height="223" loading="lazy">
           </a>
-          <p>Small-batch homemade cookies, baked with love (and a little sass) in Irvine, California.</p>
+          <p>Made with love. Baked with personality. Shared with happiness.</p>
         </div>
         <div>
           <h4>Explore</h4>
           <ul>
-            <li><a href="#flavors">Flavors</a></li>
+            <li><a href="#flavors">Menu</a></li>
+            <li><a href="#boxes">Boxes</a></li>
             <li><a href="#story">Our Story</a></li>
             <li><a href="#how">How it Works</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -500,8 +519,8 @@
       </div>
 
       <div class="footer__bottom">
-        <p>© <span data-year>2026</span> Cali Aunties Cookies. All rights reserved.</p>
-        <p>Made in a home kitchen with <svg class="footer__heart" aria-hidden="true"><use href="#i-heart"/></svg> in Irvine, CA</p>
+        <p>© <span data-year>2026</span> Cali Aunties. All rights reserved.</p>
+        <p>From our home kitchen to your happy place <svg class="footer__heart" aria-hidden="true"><use href="#i-heart"/></svg></p>
       </div>
     </div>
   </footer>
@@ -509,8 +528,6 @@
   <div class="toast" role="status" aria-live="polite"></div>
 
   <script src="js/flavors.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" defer></script>
-  <script src="js/cookie3d.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>

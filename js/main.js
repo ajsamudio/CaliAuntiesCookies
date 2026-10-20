@@ -163,17 +163,17 @@
 
   if (grid) {
     grid.innerHTML = MENU.map(f => `
-      <div class="card-wrap">
-        <article class="card" style="--card-bg:${f.bg};--accent:${f.accent}">
-          <span class="card__tag">${esc(f.tag)}</span>
+      <div class="card-wrap${f.boxable === false ? ' card-wrap--wide' : ''}">
+        <article class="card" style="--card-bg:${f.bg}">
           <div class="card__media">
-            <span class="card__burst" aria-hidden="true"></span>
-            ${f.photo ? `<img class="card__photo" src="${esc(f.photo)}" alt="${esc(f.name)} cookie" loading="lazy">` : cookieSVG(f)}
+            ${f.photo
+              ? `<img class="card__photo" src="${esc(f.photo)}" alt="${esc(f.alt || f.name)}" loading="lazy" width="800" height="1067"${f.photoPos ? ` style="object-position:${esc(f.photoPos)}"` : ''}>`
+              : `<span class="card__burst" aria-hidden="true"></span>${cookieSVG(f)}`}
           </div>
           <div class="card__body">
             <h3 class="card__title">${esc(f.name)}</h3>
+            ${f.nickname ? `<p class="card__nick">${esc(f.nickname)}</p>` : ''}
             <p class="card__blurb">${esc(f.blurb)}</p>
-            <ul class="card__notes" aria-label="Key ingredients">${f.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>
             ${f.boxable === false ? '' : `<button class="btn card__add" type="button" data-flavor="${f.slug}" aria-pressed="false">
               <span class="card__add-icon" aria-hidden="true">+</span>
               <span class="card__add-label">Add to box</span>
@@ -200,6 +200,22 @@
         <span>${esc(b.label)} <small>· ${esc(b.note)}</small>${b.price ? ` <b class="chip__price">${esc(b.price)}</b>` : ''}</span>
       </label>`).join('');
   }
+  // "Three levels of temptation": one cookie per spot in the box
+  const boxGrid = $('#box-grid');
+  if (boxGrid) {
+    const tones = ['pink', 'butter', 'mint'];
+    boxGrid.innerHTML = BOXES.map((b, i) => `
+      <article class="box-card box-card--${tones[i % tones.length]}" data-pop>
+        <div class="box-card__tray box-card__tray--${b.size}" aria-hidden="true">
+          ${Array.from({ length: b.size }, () => '<svg viewBox="0 0 48 48"><use href="#logo-cookie"/></svg>').join('')}
+        </div>
+        <h3 class="box-card__name">${esc(b.label)}</h3>
+        <p class="box-card__price">${esc(b.price || '')}</p>
+        <p class="box-card__blurb">${esc(b.blurb || b.note)}</p>
+        <p class="box-card__rule">${b.size} cookies · ${esc(b.note.toLowerCase())}</p>
+      </article>`).join('');
+  }
+
   const pickupNote = $('#pickup-note');
   if (pickupNote) pickupNote.textContent = SITE.pickupNote || '';
 
@@ -240,7 +256,8 @@
     if (on && !selected.has(slug) && selected.size >= maxFlavors()) {
       $$(`#flavor-chips input[data-flavor="${slug}"]`).forEach(cb => { cb.checked = false; });
       const b = currentBox();
-      toast(b && b.maxFlavors === 1 ? `A ${b.label.toLowerCase()} is one flavor. Go for 12 to mix it up!` : `Easy, tiger! Up to ${maxFlavors()} flavors per box.`);
+      const mixer = BOXES.find(x => x.maxFlavors > 1);
+      toast(b && b.maxFlavors === 1 ? `${b.label} is one flavor.${mixer ? ` Go for ${mixer.label} to mix it up!` : ''}` : `Easy, tiger! Up to ${maxFlavors()} flavors per box.`);
       return;
     }
     on ? selected.add(slug) : selected.delete(slug);
@@ -360,7 +377,7 @@
         navLinks.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === `#${en.target.id}`));
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['flavors', 'story', 'how', 'faq', 'order', 'top'].forEach(id => { const s = document.getElementById(id); s && io.observe(s); });
+    ['flavors', 'boxes', 'story', 'how', 'faq', 'order', 'top'].forEach(id => { const s = document.getElementById(id); s && io.observe(s); });
   }
 
   /* ---------- 3D tilt on cards ---------- */
@@ -380,11 +397,6 @@
       });
     });
   }
-
-  /* ---------- Cookie boop easter egg ---------- */
-  const boopLines = ['Hey! Hands off the merchandise.', 'Okay fine, one more spin.', 'Careful, Auntie bites back.', "You're crumbling me!", 'Wheee!'];
-  let boops = 0;
-  document.addEventListener('cookie:boop', () => { if (boops++ % 2 === 0) toast(boopLines[Math.floor(boops / 2) % boopLines.length]); });
 
   /* ---------- Inquiry form ---------- */
   const form = $('#inquiry-form');
@@ -575,7 +587,7 @@
       .from(['.hero__lede', '.hero__actions', '.hero__perks'], { y: 34, opacity: 0, duration: .9, stagger: .1 }, .5)
       .from('.hero__visual-inner', { scale: .55, rotate: -14, opacity: 0, duration: 1.6, ease: 'elastic.out(1, .65)' }, .2)
       .from('.sticker', { scale: 0, rotate: -200, duration: 1.1, ease: 'back.out(1.8)' }, .9)
-      .from('.hero__hint', { opacity: 0, x: -20, duration: .8 }, 1.4)
+      .from('.hero__doodle', { scale: 0, rotate: 30, opacity: 0, duration: .9, ease: 'back.out(2)' }, 1.1)
       .from('.nav__inner > *', { y: -30, opacity: 0, duration: .8, stagger: .08 }, .1);
 
     runPreloader(() => intro.play());
@@ -642,9 +654,12 @@
     gsap.from('.sticky-note', { scale: 0, rotate: -40, duration: .9, delay: .5, ease: 'back.out(2)', scrollTrigger: { trigger: '.polaroids', start: 'top 80%', once: true } });
 
     /* Value cards pop */
-    gsap.from('[data-pop]', {
-      y: 70, scale: .85, rotate: (i) => [-6, 4, -3][i % 3], opacity: 0, duration: 1, stagger: .12, ease: 'back.out(1.5)',
-      scrollTrigger: { trigger: '.values', start: 'top 85%', once: true }
+    ['.values', '.box-grid'].forEach(sel => {
+      if (!$(sel)) return;
+      gsap.from(`${sel} [data-pop]`, {
+        y: 70, scale: .85, rotate: (i) => [-6, 4, -3][i % 3], opacity: 0, duration: 1, stagger: .12, ease: 'back.out(1.5)',
+        scrollTrigger: { trigger: sel, start: 'top 85%', once: true }
+      });
     });
 
     /* Steps: dotted path draws as you scroll */
