@@ -157,7 +157,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; font-optica
   animation: preloader-safety .5s 7s forwards;
 }
 .preloader__inner { text-align: center; }
-.preloader__cookie { width: 120px; margin: 0 auto 20px; animation: spin 2.6s linear infinite; }
+.preloader__cookie { width: 120px; margin: 0 auto 20px; }
 .preloader__text { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 6px; font-style: italic; font-weight: 300; }
 .preloader__num { font-weight: 600; letter-spacing: .1em; margin: 0; }
 @keyframes preloader-safety { to { opacity: 0; visibility: hidden; } }
@@ -590,6 +590,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; font-optica
 .deco-cookie svg > ellipse, .preloader__cookie svg > ellipse, .success__cookie svg > ellipse, .cookie-fallback svg > ellipse { display: none; }
 .deco-cookie--a { width: clamp(90px, 11vw, 160px); left: -30px; top: 24%; }
 .deco-cookie--b { width: clamp(80px, 9vw, 130px); right: -20px; bottom: 16%; }
+.cookie-photo { display: block; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 14px 30px -12px rgba(75, 43, 36, .35); }
 .deco-cookie--faq { position: relative; width: 150px; margin: 36px 0 0 6px; }
 
 /* ---------- FAQ ---------- */
@@ -709,7 +710,7 @@ details[open]::details-content { block-size: auto; }
 
 .success { padding: 30px 10px 10px; text-align: center; }
 .success:focus { outline: none; }
-.success__cookie { width: 140px; margin: 0 auto 24px; animation: spin 12s linear infinite; }
+.success__cookie { width: 140px; margin: 0 auto 24px; }
 .success h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 14px; }
 .success p { max-width: 42ch; margin: 0 auto 22px; color: var(--cocoa-2); }
 .success__demo { font-size: .88rem; padding: 10px 14px; border-radius: 12px; background: var(--butter); color: var(--cocoa) !important; font-weight: 700; }
@@ -720,7 +721,7 @@ html:not(.preorders-open) .card__add,
 html:not(.preorders-open) .nav__cta .badge { display: none; }
 
 .coming-soon { padding: 26px 8px 8px; text-align: center; }
-.coming-soon__cookie { width: 150px; margin: 0 auto 22px; animation: spin 14s linear infinite; }
+.coming-soon__cookie { width: 150px; margin: 0 auto 22px; }
 .coming-soon h3 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin: 6px 0 14px; color: var(--pink); font-style: italic; font-weight: 300; }
 .coming-soon p:not(.eyebrow) { max-width: 40ch; margin: 0 auto 26px; color: var(--cocoa-2); }
 
