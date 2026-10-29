@@ -447,28 +447,30 @@
         return;
       }
 
-      const endpoint = form.dataset.endpoint || form.action;
-      const demo = !endpoint || endpoint.includes('YOUR_FORM_ID');
+      // Send as JSON (Vercel functions don't parse multipart form data)
+      const data = Object.fromEntries(new FormData(form));
+      data.flavors = new FormData(form).getAll('flavors');
       submit.disabled = true;
       submit.classList.add('is-loading');
       $('.btn__label', submit).textContent = 'Sending';
 
       try {
-        if (demo) {
-          await new Promise(r => setTimeout(r, 900));
-          console.info('[Cali Aunties] Demo mode: add a Formspree form ID to index.html to receive inquiries.');
-        } else {
-          const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        }
+        const res = await fetch(form.getAttribute('action'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.status === 503) throw new Error('not_configured');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         form.hidden = true;
         success.hidden = false;
-        $('.success__demo', success).hidden = !demo;
         success.focus({ preventScroll: true });
         confetti(success.parentElement);
         if (animate) gsap.from(success.children, { y: 30, opacity: 0, stagger: .08, duration: .7, ease: 'back.out(1.6)' });
       } catch (err) {
-        status.textContent = "Oh crumbs! Something went wrong. Please try again, or email us at caliauntiescookies@gmail.com.";
+        status.textContent = err.message === 'not_configured'
+          ? "Online preorders aren't live just yet! To order now, message us on Instagram @caliauntiescookies or email caliauntiescookies@gmail.com."
+          : "Oh crumbs! Something went wrong. Please try again, or email us at caliauntiescookies@gmail.com.";
       } finally {
         submit.disabled = false;
         submit.classList.remove('is-loading');

@@ -5,7 +5,7 @@ A one-page site for Cali Aunties ("Happiness is Homemade."). Plain HTML, CSS and
 - **Real photos**: the client's hero box photo, plus a photo for each of the 11 menu items (`assets/images/`).
 - **Official logos**: header, footer and favicon use her Canva logos (`assets/images/logo/`).
 - **Scroll animations**: GSAP + ScrollTrigger, with Lenis for smooth scrolling.
-- **Preorder request form**: The Flirty 4-Pack ($18, one flavor), The Sweet 6-Pack ($26, one flavor) or The Party Dozen ($48, up to two flavors), plus how many boxes (each box adds to the flavor limit, with an estimated total), first and last name, phone, email and pickup date. Posts to Formspree (free tier). Hidden behind an "Online Preorders Coming Soon" panel until `preordersOpen` is turned on.
+- **Preorder request form**: The Flirty 4-Pack ($18, one flavor), The Sweet 6-Pack ($26, one flavor) or The Party Dozen ($48, up to two flavors), plus how many boxes (each box adds to the flavor limit, with an estimated total), first and last name, phone, email and pickup date. Sent through a Vercel function (`api/preorder.js`) that emails her via Resend. Shown under the "Online Preorders Coming Soon" card while `preordersOpen` is on.
 
 ## Run it locally
 
@@ -21,21 +21,27 @@ Then open http://localhost:5173.
 
 | What | Where |
 |---|---|
-| **Open preorders** | `js/flavors.js`: set `preordersOpen: true` in `window.SITE` once the county approval comes through. Box sizes, prices and the pickup note live there too. |
+| **Preorder form on/off** | `js/flavors.js`: `preordersOpen` in `window.SITE` (currently on). Box sizes, prices, `maxBoxes` and the pickup note live there too. |
 | **Brand colors** | `css/styles.css`, at the top in `:root` (`--pink`, `--cocoa`, `--butter`, …) |
 | **Logo** | `assets/images/logo/`: trimmed copies of the official logos used in the header and footer |
 | **Flavors** (names, nicknames, blurbs, photos, alt text) | `js/flavors.js`. All 11 approved items are listed. Set `available: false` to hide one without deleting it, or `photoPos` to adjust a photo's crop. |
 | **Box sizes & prices** | `js/flavors.js`, `window.SITE.boxes` (fills the "Three Levels of Temptation" section and the form) |
 | **Story text** | `index.html`, the `#story` section (approved copy from Oct 19) |
-| **Business email** | `caliauntiescookies@gmail.com`, in `index.html` (order section `contact-list` and footer "Say hi") and the form error message in `js/main.js`. Swap to `hello@caliauntiescookies.com` once domain forwarding is live. |
+| **Business email** | `hello@caliauntiescookies.com` (Porkbun forwards it to her Gmail) and `caliauntiescookies@gmail.com`, both listed in `index.html` (order section `contact-list` and footer "Say hi"). The form error messages in `js/main.js` use the Gmail address. |
 | **Domain** | When `caliauntiescookies.com` is live, update `og:url` and `og:image` in `index.html` from the `vercel.app` address. |
-| **Inquiry form** | Create a form at [formspree.io](https://formspree.io), then replace `YOUR_FORM_ID` in **both** the `action` and `data-endpoint` attributes of `#inquiry-form` |
+| **Preorder emails** | `api/preorder.js` (Vercel serverless function). Set these in Vercel → Settings → Environment Variables, then redeploy: |
 
-Until a Formspree ID is added, the form runs in **demo mode**. It shows the success screen with a yellow "demo mode" note and sends nothing.
+| Variable | Value |
+|---|---|
+| `RESEND_API_KEY` | Required. Until it's set, the form tells customers preorders aren't live yet and to DM or email instead. |
+| `RESEND_FROM_EMAIL` | e.g. `Cali Aunties <orders@caliauntiescookies.com>`. Set it only after the domain is verified in Resend. Until then requests send from `onboarding@resend.dev`, which Resend only delivers to the Resend account's own email (so sign up for Resend with caliauntiescookies@gmail.com), and customer confirmations are skipped. |
+| `ORDER_TO_EMAIL` | Optional. Where requests go. Defaults to caliauntiescookies@gmail.com. |
+
+Each request emails her with Reply-To set to the customer. With `RESEND_FROM_EMAIL` set, the customer also gets a "we got your request" email. Nothing is charged online.
 
 ## Hosting
 
-Upload the folder to Netlify, Vercel, Cloudflare Pages or GitHub Pages. No build settings are needed.
+Hosted on Vercel (no build settings). The preorder form needs Vercel's `api/` functions, so moving to another host means porting `api/preorder.js`.
 
 **Don't deploy `10.19Update/`.** It's the client's raw photo package and copy PDF (git-ignored). Move it out of the folder or exclude it before uploading.
 

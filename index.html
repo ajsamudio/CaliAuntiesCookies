@@ -406,7 +406,7 @@
           <p class="lede" data-when="closed">We're waiting on our Orange County Cottage Food approval. The moment it's official, you'll be able to request a box for local pickup right here.</p>
           <p class="order__small" data-when="open">This is a request, not a purchase. No payment is taken online.</p>
           <ul class="contact-list">
-            <li><span>Email</span><a href="mailto:caliauntiescookies@gmail.com">caliauntiescookies@gmail.com</a></li>
+            <li><span>Email</span><a href="mailto:hello@caliauntiescookies.com">hello@caliauntiescookies.com</a><a href="mailto:caliauntiescookies@gmail.com">caliauntiescookies@gmail.com</a></li>
             <li><span>Instagram</span><a href="https://instagram.com/caliauntiescookies" target="_blank" rel="noopener">@caliauntiescookies</a></li>
             <li><span>TikTok</span><a href="https://www.tiktok.com/@caliauntiescookies" target="_blank" rel="noopener">@caliauntiescookies</a></li>
             <li><span>Facebook</span><a href="https://www.facebook.com/CaliAunties" target="_blank" rel="noopener">Cali Aunties</a></li>
@@ -429,10 +429,8 @@
             <p class="coming-soon__socials">Also on <a href="https://www.tiktok.com/@caliauntiescookies" target="_blank" rel="noopener">TikTok</a> &amp; <a href="https://www.facebook.com/CaliAunties" target="_blank" rel="noopener">Facebook</a></p>
           </div>
 
-          <!-- FORM: create a free form at formspree.io and replace YOUR_FORM_ID
-               in BOTH the action and data-endpoint below. -->
-          <form id="inquiry-form" class="inquiry" data-when="open" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-endpoint="https://formspree.io/f/YOUR_FORM_ID" novalidate>
-            <input type="hidden" name="_subject" value="New cookie preorder request from the website!">
+          <!-- FORM: sends to api/preorder.js, which emails her through Resend -->
+          <form id="inquiry-form" class="inquiry" data-when="open" action="/api/preorder" method="POST" novalidate>
             <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <div class="form-grid">
@@ -494,7 +492,6 @@
             <img class="success__cookie cookie-photo" src="assets/images/cookies/cotton-candy.jpg" alt="" width="360" height="360" loading="lazy">
             <h3>Yay! Your preorder request is in.</h3>
             <p>We'll get back to you within 1–2 days to confirm availability, pickup and payment. In the meantime, try not to lick your screen.</p>
-            <p class="success__demo" hidden>Heads up: online preorders aren't live yet, so this request wasn't sent. To order now, message us on Instagram @caliauntiescookies or email caliauntiescookies@gmail.com.</p>
             <button class="btn btn--ghost" type="button" data-reset>Send another</button>
           </div>
         </div>
@@ -537,7 +534,8 @@
         <div>
           <h4>Say hi</h4>
           <ul>
-            <li><a href="mailto:caliauntiescookies@gmail.com">Email us</a></li>
+            <li><a class="footer__email" href="mailto:hello@caliauntiescookies.com">hello<wbr>@caliauntiescookies.com</a></li>
+            <li><a class="footer__email" href="mailto:caliauntiescookies@gmail.com">caliauntiescookies<wbr>@gmail.com</a></li>
             <li><a href="https://instagram.com/caliauntiescookies" target="_blank" rel="noopener">Instagram</a></li>
             <li><a href="https://www.tiktok.com/@caliauntiescookies" target="_blank" rel="noopener">TikTok</a></li>
             <li><a href="https://www.facebook.com/CaliAunties" target="_blank" rel="noopener">Facebook</a></li>

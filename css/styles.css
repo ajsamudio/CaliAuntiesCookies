@@ -715,7 +715,6 @@ details[open]::details-content { block-size: auto; }
 .success__cookie { width: 140px; margin: 0 auto 24px; }
 .success h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 14px; }
 .success p { max-width: 42ch; margin: 0 auto 22px; color: var(--cocoa-2); }
-.success__demo { font-size: .88rem; padding: 10px 14px; border-radius: 12px; background: var(--butter); color: var(--cocoa) !important; font-weight: 700; }
 /* Preorders open/closed (set by SITE.preordersOpen) */
 html:not(.preorders-open) [data-when="open"],
 html.preorders-open [data-when="closed"] { display: none !important; }
@@ -772,8 +771,9 @@ html:not(.preorders-open) .nav__cta .badge { display: none; }
 .footer h4 { font-family: var(--font-body); font-weight: 600; font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--butter); margin-bottom: 16px; }
 .footer ul { margin: 0; padding: 0; list-style: none; }
 .footer li { margin-bottom: 9px; }
-.footer li a { text-decoration: none; opacity: .85; transition: opacity .2s, color .2s; }
+.footer li a { text-decoration: none; opacity: .85; overflow-wrap: break-word; transition: opacity .2s, color .2s; }
 .footer li a:hover { opacity: 1; color: var(--butter); }
+.footer__email { font-size: .86em; }
 .footer__brand p { max-width: 32ch; margin-top: 18px; opacity: .8; }
 .logo--light .logo__img { width: min(300px, 100%); height: auto; filter: none; }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; font-size: .86rem; opacity: .72; }
