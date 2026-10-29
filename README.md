@@ -27,7 +27,8 @@ Then open http://localhost:5173.
 | **Flavors** (names, nicknames, blurbs, photos, alt text) | `js/flavors.js`. All 11 approved items are listed. Set `available: false` to hide one without deleting it, or `photoPos` to adjust a photo's crop. |
 | **Box sizes & prices** | `js/flavors.js`, `window.SITE.boxes` (fills the "Three Levels of Temptation" section and the form) |
 | **Story text** | `index.html`, the `#story` section (approved copy from Oct 19) |
-| **Business email** | `index.html`, order section `contact-list` and footer (marked `EDIT`) |
+| **Business email** | `caliauntiescookies@gmail.com`, in `index.html` (order section `contact-list` and footer "Say hi") and the form error message in `js/main.js`. Swap to `hello@caliauntiescookies.com` once domain forwarding is live. |
+| **Domain** | When `caliauntiescookies.com` is live, update `og:url` and `og:image` in `index.html` from the `vercel.app` address. |
 | **Inquiry form** | Create a form at [formspree.io](https://formspree.io), then replace `YOUR_FORM_ID` in **both** the `action` and `data-endpoint` attributes of `#inquiry-form` |
 
 Until a Formspree ID is added, the form runs in **demo mode**. It shows the success screen with a yellow "demo mode" note and sends nothing.

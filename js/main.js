@@ -447,7 +447,7 @@
         confetti(success.parentElement);
         if (animate) gsap.from(success.children, { y: 30, opacity: 0, stagger: .08, duration: .7, ease: 'back.out(1.6)' });
       } catch (err) {
-        status.textContent = "Oh crumbs! Something went wrong. Please try again, or email us directly.";
+        status.textContent = "Oh crumbs! Something went wrong. Please try again, or email us at caliauntiescookies@gmail.com.";
       } finally {
         submit.disabled = false;
         submit.classList.remove('is-loading');
