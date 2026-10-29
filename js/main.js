@@ -216,6 +216,12 @@
       </article>`).join('');
   }
 
+  const qtySelect = $('#f-qty');
+  if (qtySelect) {
+    qtySelect.innerHTML = Array.from({ length: SITE.maxBoxes || 10 }, (_, i) =>
+      `<option value="${i + 1}">${i + 1} ${i ? 'boxes' : 'box'}</option>`).join('');
+  }
+
   const pickupNote = $('#pickup-note');
   if (pickupNote) pickupNote.textContent = SITE.pickupNote || '';
 
@@ -240,9 +246,11 @@
     const r = boxWrap && $('input[name="box"]:checked', boxWrap);
     return r ? BOXES.find(b => b.id === r.dataset.box) : null;
   };
+  const quantity = () => (qtySelect && parseInt(qtySelect.value, 10)) || 1;
+  // Each box brings its own flavor allowance, so 2 Flirty 4-Packs = 2 flavors
   const maxFlavors = () => {
     const b = currentBox();
-    return b ? b.maxFlavors : Math.max(1, ...BOXES.map(x => x.maxFlavors));
+    return (b ? b.maxFlavors : Math.max(1, ...BOXES.map(x => x.maxFlavors))) * quantity();
   };
   function updateFlavorHint() {
     const max = maxFlavors();
@@ -250,6 +258,13 @@
     const hint = $('#flavor-hint');
     if (legend) legend.textContent = max > 1 ? `Choose up to ${max} flavors` : 'Choose your flavor';
     if (hint) hint.textContent = `${selected.size} of ${max} picked · subject to availability`;
+    updateTotal();
+  }
+  function updateTotal() {
+    const out = $('#order-total');
+    const b = currentBox();
+    const price = b && parseFloat(String(b.price).replace(/[^\d.]/g, ''));
+    if (out) out.textContent = price ? `Estimated total: $${(price * quantity()).toFixed(0)} · confirmed when we reply` : '';
   }
 
   function setSelected(slug, on, silent) {
@@ -257,7 +272,9 @@
       $$(`#flavor-chips input[data-flavor="${slug}"]`).forEach(cb => { cb.checked = false; });
       const b = currentBox();
       const mixer = BOXES.find(x => x.maxFlavors > 1);
-      toast(b && b.maxFlavors === 1 ? `${b.label} is one flavor.${mixer ? ` Go for ${mixer.label} to mix it up!` : ''}` : `Easy, tiger! Up to ${maxFlavors()} flavors per box.`);
+      toast(b && maxFlavors() === 1
+        ? `${b.label} is one flavor.${mixer ? ` Go for ${mixer.label}, or add another box, to mix it up!` : ''}`
+        : `Easy, tiger! Up to ${maxFlavors()} flavors for ${quantity() > 1 ? 'these boxes' : 'this box'}.`);
       return;
     }
     on ? selected.add(slug) : selected.delete(slug);
@@ -292,6 +309,10 @@
     [...selected].slice(maxFlavors()).forEach(s => setSelected(s, false, true));
     updateFlavorHint();
     const f = boxWrap.closest('.field'); f && f.classList.remove('is-invalid');
+  });
+  qtySelect && qtySelect.addEventListener('change', () => {
+    [...selected].slice(maxFlavors()).forEach(s => setSelected(s, false, true));
+    updateFlavorHint();
   });
   updateFlavorHint();
 
@@ -461,7 +482,7 @@
       updateFlavorHint();
       success.hidden = true;
       form.hidden = false;
-      $('#f-name', form).focus();
+      $('#f-first', form).focus();
       if (lenis) lenis.resize();
     });
   }
@@ -552,8 +573,8 @@
 
   /* ---------- Motion ---------- */
   function initMotion() {
-    // Splits that are useful even without motion (footer hover letters)
-    const footerChars = splitChars($('.footer__big'));
+    // Splits that are useful even without motion (closing hover letters)
+    const closingChars = splitChars($('.closing__big'));
 
     if (!animate) {
       runPreloader(() => {});
@@ -676,11 +697,12 @@
     /* Order form slides in */
     gsap.from('.form-card', { rotate: 3, scrollTrigger: { trigger: '.form-card', start: 'top bottom', end: 'top 40%', scrub: true } });
 
-    /* Footer letters rise */
-    gsap.from(footerChars, {
+    /* Closing letters rise */
+    gsap.from(closingChars, {
       yPercent: 100, opacity: 0, rotate: 8, duration: 1, stagger: .03, ease: 'back.out(1.6)',
-      scrollTrigger: { trigger: '.footer__big', start: 'top 85%', once: true }
+      scrollTrigger: { trigger: '.closing__big', start: 'top 85%', once: true }
     });
+    gsap.from('.closing__heart', { scale: 0, rotate: -30, duration: .8, ease: 'back.out(2.2)', scrollTrigger: { trigger: '.closing__heart', start: 'top 90%', once: true } });
 
     /* Parallax layers */
     $$('[data-speed]').forEach(el => {

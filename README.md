@@ -5,7 +5,7 @@ A one-page site for Cali Aunties ("Happiness is Homemade."). Plain HTML, CSS and
 - **Real photos**: the client's hero box photo, plus a photo for each of the 11 menu items (`assets/images/`).
 - **Official logos**: header, footer and favicon use her Canva logos (`assets/images/logo/`).
 - **Scroll animations**: GSAP + ScrollTrigger, with Lenis for smooth scrolling.
-- **Preorder request form**: The Flirty 4-Pack ($16, one flavor), The Sweet 6-Pack ($22, one flavor) or The Party Dozen ($42, up to two flavors), plus name, contact and pickup date. Posts to Formspree (free tier). Hidden behind an "Online Preorders Coming Soon" panel until `preordersOpen` is turned on.
+- **Preorder request form**: The Flirty 4-Pack ($16, one flavor), The Sweet 6-Pack ($22, one flavor) or The Party Dozen ($42, up to two flavors), plus how many boxes (each box adds to the flavor limit, with an estimated total), first and last name, phone, email and pickup date. Posts to Formspree (free tier). Hidden behind an "Online Preorders Coming Soon" panel until `preordersOpen` is turned on.
 
 ## Run it locally
 

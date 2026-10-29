@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cali Aunties · Happiness is Homemade.</title>
+  <title>Cali Auntie's Cookies</title>
   <meta name="description" content="Welcome to Cali Aunties, where every cookie is made from scratch, baked with love, and served with a little attitude. Big cookies, bold flavors, homemade in Irvine, California. Online preorders coming soon.">
   <meta name="theme-color" content="#B84F69">
   <meta property="og:title" content="Cali Aunties · Happiness is Homemade.">
@@ -436,6 +436,12 @@
                 <div class="chips" id="box-chips"><!-- generated from SITE.boxes --></div>
               </fieldset>
 
+              <div class="field">
+                <label for="f-qty">How many boxes? <span class="req" aria-hidden="true">*</span></label>
+                <select id="f-qty" name="quantity" required><!-- generated from SITE.maxBoxes --></select>
+              </div>
+              <p class="field__hint field__total" id="order-total" aria-live="polite"></p>
+
               <fieldset class="field field--full">
                 <legend id="flavor-legend">Choose your flavor</legend>
                 <div class="chips" id="flavor-chips"><!-- generated --></div>
@@ -443,18 +449,22 @@
               </fieldset>
 
               <div class="field">
-                <label for="f-name">Your name <span class="req" aria-hidden="true">*</span></label>
-                <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Cookie Monster">
+                <label for="f-first">First name <span class="req" aria-hidden="true">*</span></label>
+                <input id="f-first" name="first_name" type="text" autocomplete="given-name" required placeholder="Cookie">
+              </div>
+              <div class="field">
+                <label for="f-last">Last name <span class="req" aria-hidden="true">*</span></label>
+                <input id="f-last" name="last_name" type="text" autocomplete="family-name" required placeholder="Monster">
+              </div>
+              <div class="field">
+                <label for="f-phone">Phone number <span class="req" aria-hidden="true">*</span></label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" required placeholder="(555) 123-4567">
               </div>
               <div class="field">
                 <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
                 <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
               </div>
-              <div class="field">
-                <label for="f-phone">Phone <span class="opt">(optional)</span></label>
-                <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567">
-              </div>
-              <div class="field">
+              <div class="field field--full">
                 <label for="f-date">Preferred pickup date <span class="req" aria-hidden="true">*</span></label>
                 <input id="f-date" name="pickup_date" type="date" required>
               </div>
@@ -485,16 +495,23 @@
         </div>
       </div>
     </section>
+
+    <!-- CLOSING: the brand line, just above the footer -->
+    <section class="section closing" id="homemade">
+      <div class="container closing__inner">
+        <p class="closing__big" aria-label="Happiness is Homemade.">
+          <span class="line">Happiness is</span>
+          <span class="line">Homemade.</span>
+        </p>
+        <span class="closing__heart" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+        <p class="closing__quote" data-reveal><span>Home isn't a place.</span> <span>It's a feeling.</span></p>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p class="footer__big" data-split aria-label="Happiness is Homemade.">
-        <span class="line">Happiness is</span>
-        <span class="line">Homemade.</span>
-      </p>
-
       <div class="footer__grid">
         <div class="footer__brand">
           <a class="logo logo--light" href="#top" aria-label="Cali Aunties, back to top">

@@ -12,6 +12,9 @@
    - boxes:         the box sizes (from the approved copy, Oct 19).
                     Also fills the "Three Levels of Temptation"
                     section and the box picker in the order form.
+   - maxBoxes:      the most boxes one request can ask for (the
+                    "How many boxes?" dropdown in the order form).
+                    Each extra box adds to the flavor limit.
    - pickupNote:    shown under the pickup date field.
    ========================================================= */
 window.SITE = {
@@ -22,6 +25,7 @@ window.SITE = {
     { id: 'box-6', photo: 'assets/images/boxes/box-6.jpg', label: 'The Sweet 6-Pack', size: 6, maxFlavors: 1, price: '$22', note: 'One flavor', blurb: 'Six cookies. One flavor. Sweet enough to share… if you\'re feeling generous.' },
     { id: 'box-12', photo: 'assets/images/boxes/box-12.jpg', label: 'The Party Dozen', size: 12, maxFlavors: 2, price: '$42', note: 'Up to two flavors', blurb: 'Twelve cookies. Up to two flavors. Because some occasions deserve a little extra temptation.' }
   ],
+  maxBoxes: 10,
   pickupNote: 'Local pickup in Irvine. We\'ll confirm your pickup time and payment details when we reply.'
 };
 
