@@ -2,6 +2,7 @@
 .DS_Store
 Thumbs.db
 10.19Update/
+10.25/
 
 # Client handoff doc holds passwords: never commit or deploy it
 *-handoff.docx
