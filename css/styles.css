@@ -723,6 +723,7 @@ html:not(.preorders-open) .card__add,
 html:not(.preorders-open) .nav__cta .badge { display: none; }
 
 .coming-soon { padding: 26px 8px 8px; text-align: center; }
+.coming-soon + .inquiry { margin-top: 36px; padding-top: 36px; border-top: 1px solid var(--hairline); }
 .coming-soon__cookie { width: 150px; margin: 0 auto 22px; }
 .coming-soon p.coming-soon__socials:not(.eyebrow) { margin: 16px auto 0; font-size: .9rem; }
 .coming-soon__socials a { font-weight: 600; color: var(--pink); }

@@ -3,12 +3,11 @@
    The everyday switches. Change these without touching any
    other file.
 
-   - preordersOpen: keep false until the Orange County Class B
-                    Cottage Food Operation approval comes through.
-                    While false, the site is a menu showcase: it
-                    shows "Online Preorders Coming Soon" instead of
-                    the order form and hides the "Add to box" buttons.
-                    Flip to true to turn the preorder form on.
+   - preordersOpen: shows the order form (under the "Online Preorders
+                    Coming Soon" card, which always shows) and the
+                    "Add to box" buttons. Set to false to hide them.
+                    Until the form is connected to an email service,
+                    submissions are not sent anywhere.
    - boxes:         the box sizes (from the approved copy, Oct 19).
                     Also fills the "Three Levels of Temptation"
                     section and the box picker in the order form.
@@ -18,7 +17,7 @@
    - pickupNote:    shown under the pickup date field.
    ========================================================= */
 window.SITE = {
-  preordersOpen: false,
+  preordersOpen: true,
   instagram: 'caliauntiescookies',
   boxes: [
     { id: 'box-4', photo: 'assets/images/boxes/box-4.jpg', label: 'The Flirty 4-Pack', size: 4, maxFlavors: 1, price: '$18', note: 'One flavor', blurb: 'Four cookies. One flavor. A little something just for you.' },
