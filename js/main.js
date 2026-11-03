@@ -184,21 +184,11 @@
       </div>`).join('');
   }
 
-  if (chipsWrap) {
-    chipsWrap.innerHTML = MENU.filter(f => f.boxable !== false).map(f => `
-      <label class="chip">
-        <input type="checkbox" name="flavors" value="${esc(f.name)}" data-flavor="${f.slug}">
-        <span><i class="chip__dot" style="background:${f.dough[0]}"></i>${esc(f.name)}</span>
-      </label>`).join('');
-  }
-
-  const boxWrap = $('#box-chips');
+  const BOXABLE = MENU.filter(f => f.boxable !== false);
+  const boxWrap = $('#f-box');
   if (boxWrap) {
-    boxWrap.innerHTML = BOXES.map(b => `
-      <label class="chip">
-        <input type="radio" name="box" value="${esc(b.label)}" data-box="${esc(b.id)}" required>
-        <span>${esc(b.label)} <small>· ${esc(b.note)}</small>${b.price ? ` <b class="chip__price">${esc(b.price)}</b>` : ''}</span>
-      </label>`).join('');
+    boxWrap.innerHTML = '<option value="" disabled selected>Choose a box…</option>' + BOXES.map(b => `
+      <option value="${esc(b.label)}" data-box="${esc(b.id)}">${esc(b.label)}${b.price ? ` · ${esc(b.price)}` : ''}</option>`).join('');
   }
   // "Three levels of temptation": one cookie per spot in the box
   const boxGrid = $('#box-grid');
@@ -243,8 +233,8 @@
   let addIdx = 0;
 
   const currentBox = () => {
-    const r = boxWrap && $('input[name="box"]:checked', boxWrap);
-    return r ? BOXES.find(b => b.id === r.dataset.box) : null;
+    const o = boxWrap && boxWrap.selectedOptions[0];
+    return o && o.dataset.box ? BOXES.find(b => b.id === o.dataset.box) : null;
   };
   const quantity = () => (qtySelect && parseInt(qtySelect.value, 10)) || 1;
   // Each box brings its own flavor allowance, so 2 Flirty 4-Packs = 2 flavors
@@ -252,6 +242,19 @@
     const b = currentBox();
     return (b ? b.maxFlavors : Math.max(1, ...BOXES.map(x => x.maxFlavors))) * quantity();
   };
+  // One dropdown per flavor the box allows; a flavor picked in one is disabled in the others
+  function renderFlavorSlots() {
+    if (!chipsWrap) return;
+    const picks = [...selected];
+    chipsWrap.innerHTML = Array.from({ length: maxFlavors() }, (_, i) => `
+      <div class="field">
+        <label for="f-flavor-${i}">Flavor ${i + 1}${i ? ' <small>(optional)</small>' : ' <span class="req" aria-hidden="true">*</span>'}</label>
+        <select id="f-flavor-${i}" name="flavors">
+          <option value="">${i ? 'No extra flavor' : 'Choose a flavor…'}</option>
+          ${BOXABLE.map(f => `<option value="${esc(f.name)}" data-flavor="${f.slug}"${picks[i] === f.slug ? ' selected' : ''}${picks.includes(f.slug) && picks[i] !== f.slug ? ' disabled' : ''}>${esc(f.name)}</option>`).join('')}
+        </select>
+      </div>`).join('');
+  }
   function updateFlavorHint() {
     const max = maxFlavors();
     const legend = $('#flavor-legend');
@@ -269,7 +272,7 @@
 
   function setSelected(slug, on, silent) {
     if (on && !selected.has(slug) && selected.size >= maxFlavors()) {
-      $$(`#flavor-chips input[data-flavor="${slug}"]`).forEach(cb => { cb.checked = false; });
+      renderFlavorSlots();
       const b = currentBox();
       const mixer = BOXES.find(x => x.maxFlavors > 1);
       toast(b && maxFlavors() === 1
@@ -282,7 +285,7 @@
       btn.setAttribute('aria-pressed', String(on));
       $('.card__add-label', btn).textContent = on ? 'In your box' : 'Add to box';
     });
-    $$(`#flavor-chips input[data-flavor="${slug}"]`).forEach(cb => { cb.checked = on; });
+    renderFlavorSlots();
     if (badge) {
       badge.textContent = selected.size;
       badge.classList.toggle('is-on', selected.size > 0);
@@ -301,19 +304,22 @@
     const slug = btn.dataset.flavor;
     setSelected(slug, !selected.has(slug));
   });
-  chipsWrap && chipsWrap.addEventListener('change', e => {
-    const slug = e.target.dataset.flavor;
-    if (slug) setSelected(slug, e.target.checked, true);
+  // Rebuild the selection from the dropdowns, keeping the cards and badge in sync
+  chipsWrap && chipsWrap.addEventListener('change', () => {
+    const now = $$('select', chipsWrap).map(sel => sel.selectedOptions[0].dataset.flavor).filter(Boolean);
+    [...selected].filter(s => !now.includes(s)).forEach(s => setSelected(s, false, true));
+    selected.clear();
+    now.forEach(s => setSelected(s, true, true));
+    if (!now.length) renderFlavorSlots();
   });
-  boxWrap && boxWrap.addEventListener('change', () => {
+  const onSizeChange = () => {
     [...selected].slice(maxFlavors()).forEach(s => setSelected(s, false, true));
+    renderFlavorSlots();
     updateFlavorHint();
-    const f = boxWrap.closest('.field'); f && f.classList.remove('is-invalid');
-  });
-  qtySelect && qtySelect.addEventListener('change', () => {
-    [...selected].slice(maxFlavors()).forEach(s => setSelected(s, false, true));
-    updateFlavorHint();
-  });
+  };
+  boxWrap && boxWrap.addEventListener('change', onSizeChange);
+  qtySelect && qtySelect.addEventListener('change', onSizeChange);
+  renderFlavorSlots();
   updateFlavorHint();
 
   /* ---------- Decorative sprinkles ---------- */
@@ -439,7 +445,7 @@
       const invalid = $$('input, select, textarea', form).filter(el => !el.checkValidity());
       $$('.field', form).forEach(f => f.classList.remove('is-invalid'));
       const noFlavor = chipsWrap && selected.size === 0;
-      if (noFlavor) invalid.push($('input', chipsWrap));
+      if (noFlavor) invalid.push($('select', chipsWrap));
       if (invalid.length) {
         invalid.forEach(el => { const f = el.closest('.field'); f && f.classList.add('is-invalid'); });
         status.textContent = noFlavor && invalid.length === 1 ? 'Almost! Pick at least one flavor.' : 'Almost! Please fill in the highlighted fields.';

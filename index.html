@@ -434,10 +434,10 @@
             <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <div class="form-grid">
-              <fieldset class="field field--full">
-                <legend>Pick your box <span class="req" aria-hidden="true">*</span></legend>
-                <div class="chips" id="box-chips"><!-- generated from SITE.boxes --></div>
-              </fieldset>
+              <div class="field">
+                <label for="f-box">Pick your box <span class="req" aria-hidden="true">*</span></label>
+                <select id="f-box" name="box" required><!-- generated from SITE.boxes --></select>
+              </div>
 
               <div class="field">
                 <label for="f-qty">How many boxes? <span class="req" aria-hidden="true">*</span></label>
@@ -447,7 +447,7 @@
 
               <fieldset class="field field--full">
                 <legend id="flavor-legend">Choose your flavor</legend>
-                <div class="chips" id="flavor-chips"><!-- generated --></div>
+                <div class="flavor-slots" id="flavor-chips"><!-- one dropdown per flavor the box allows --></div>
                 <p class="field__hint" id="flavor-hint">Subject to availability.</p>
               </fieldset>
 

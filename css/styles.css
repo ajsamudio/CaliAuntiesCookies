@@ -689,6 +689,8 @@ details[open]::details-content { block-size: auto; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; background-color: var(--white); border-color: var(--pink); box-shadow: 0 0 0 4px var(--pink-100); }
 .field.is-invalid input, .field.is-invalid select { border-color: var(--berry); background-color: #FFF0F4; }
 
+.flavor-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.flavor-slots small { font-weight: 400; opacity: .7; }
 .chips { display: flex; flex-wrap: wrap; gap: 9px; }
 .chip { position: relative; cursor: pointer; }
 .chip input { position: absolute; opacity: 0; pointer-events: none; }
