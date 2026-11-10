@@ -92,7 +92,7 @@ window.FLAVORS = [
     dough: ['#4FC9C4', '#2C9C98'],
     toppings: { chips: '#2A1A16', chipCount: 7, salt: true },
     photo: 'assets/images/menu/monster.jpg',
-    alt: 'Bright blue cookies with Oreo chunks and white chocolate chips on pink paper',
+    alt: 'A stack of bright blue cookies with Oreo chunks and white chocolate chips on a pink linen napkin',
     available: true
   },
   {
@@ -140,7 +140,7 @@ window.FLAVORS = [
     dough: ['#FFC9D1', '#E496A6'],
     toppings: { sprinkles: 'dense', cracks: false },
     photo: 'assets/images/menu/cotton-candy.jpg',
-    alt: 'Pink and blue swirled cotton candy cookies coated in sparkling sugar',
+    alt: 'A stack of pink cotton candy cookies with green swirls, coated in sparkling sugar',
     available: true
   },
   {
