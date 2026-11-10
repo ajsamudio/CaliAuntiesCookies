@@ -39,6 +39,8 @@ window.SITE = {
                 without deleting it.
    - boxable:   false for items that can't go in a cookie box
                 (e.g. cinnamon rolls). They show on the menu only.
+   - prices:    optional list of price tiers shown on the menu card
+                (used for items sold outside the cookie boxes)
    - photo / alt: the menu photo and its description for screen readers
    - photoPos:  optional CSS object-position to fine-tune the crop
    - bg:     card background color
@@ -177,6 +179,7 @@ window.FLAVORS = [
     toppings: { glaze: '#FFFDF5', sugar: true },
     photo: 'assets/images/menu/cinnamon-rolls.jpg',
     alt: 'Glazed cinnamon rolls in a pan, with a close-up of one dripping with brown butter vanilla glaze',
+    prices: ['2 for $14', '4 for $26', '6 for $38'],
     available: true,
     boxable: false
   }

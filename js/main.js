@@ -174,6 +174,7 @@
             <h3 class="card__title">${esc(f.name)}</h3>
             ${f.nickname ? `<p class="card__nick">${esc(f.nickname)}</p>` : ''}
             <p class="card__blurb">${esc(f.blurb)}</p>
+            ${f.prices && f.prices.length ? `<ul class="card__prices" aria-label="Prices">${f.prices.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}
             ${f.boxable === false ? '' : `<button class="btn card__add" type="button" data-flavor="${f.slug}" aria-pressed="false">
               <span class="card__add-icon" aria-hidden="true">+</span>
               <span class="card__add-label">Add to box</span>
